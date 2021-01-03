@@ -94,7 +94,7 @@ gulp.task('rev-static', function (cb) {
 });
 
 gulp.task('rev-plugins', function (cb) {
-  gulp.src(['src/js/plugins/**/*.js', 'src/js/plugins/*.js']).pipe(gulp.dest(`${BUILD_DIR}/js/plugins`));
+  gulp.src(['src/js/plugins/**/*.*', 'src/js/plugins/*.*']).pipe(gulp.dest(`${BUILD_DIR}/js/plugins`));
   cb();
 });
 
