@@ -1,0 +1,158 @@
+<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+<script src="../js/common/api.js?v=31202001221543.1.3.2"></script>
+<link rel="stylesheet" href="../lineSpread/lib/jquery-ui/css/smoothness/jquery-ui-1.10.3.custom.css">
+<link rel="stylesheet" href="../css/accessConfig/accessConfig.css?v=202001221543.1.3.fdsa">
+<!-- <link rel="stylesheet" href="../css/assets/jquery-ui.css"> -->
+<!-- <script src="../js/plugins/jquery-ui.js"></script> -->
+<script src="../js/global_assets/js/plugins/trees/jquery-ui.js"></script>
+<!-- spread.js -->
+<link rel="stylesheet" href="../js/plugins/spreadJS-2017/gc.spread.sheets.excel2016colorful.13.0.0.css">
+<script src="../js/plugins/spreadJS-2017/gc.spread.sheets.all.13.0.0.min.js"></script>
+<!-- <script src="../js/plugins/spreadJS-2017/gc.spread.excelio.13.0.0.min.js"></script> -->
+<script src="../js/plugins/spreadJS-2017/gc.spread.sheets.resources.zh.13.0.0.min.js"></script>
+<script src="../js/plugins/spreadJS-2017/FileSaver.min.js"></script>
+<script src="/js/plugins/spreadJS-2017/license.js?v=311.1.1.dev2.3.1.84"></script>
+<script src="../js/accessConfig/commonAccessFun.js?26751212"></script>
+<script src="../js/accessConfig/accessConfig.js"></script>
+
+</head>
+
+<body>
+  <div class="page-content">
+    <div class="content-wrapper organizational2 accessConfigParts" >
+      <!-- organContent：隐藏div的class organizational2: loading加载的div-->
+      <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+        <div class="d-flex" id="menu">
+          <div class="breadcrumb breadcrumbNav">
+            <!-- <i class="pt-2 icon-clipboard3 mr-2" style=" top: 1px;"></i>
+            <span class="breadcrumb-item ">权限配置</span> -->
+          </div>
+        </div>
+        <div class="header-elements">
+          <div class="breadcrumb justify-content-center">
+            <div class="saveDIV mr-2"></div>
+            <a class="logQuery breadcrumb-elements-item" style="cursor:pointer" id="saveAccessConfig">
+              <i class="icon-floppy-disk icon text-default mr-2"></i>
+              <span class="saveBtn" ></span>
+            </a>
+            <a class="breadcrumb-elements-item" id="refreshAccessConfig" style="cursor:pointer" >
+              <i class="icon-loop3 icon  mr-2"></i>
+              <span class="refresh"></span>
+            </a>
+            <a href="#" class="breadcrumb-elements-item"  style="display: none;" id="layer_close">
+                <i class="icon-cross2 mr-2"></i>
+                <span class="iconSpan">关闭</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div  class="blockui-message bg-slate-700 text-white rounded p-2" style="display: none;">
+        <i class="icon-spinner4 spinner mt-1"></i> <span class="font-weight-semibold d-block mt-2">Loading</span>
+      </div>
+      <div class="subContent card organContent">
+        <div class="page-content organizational2">
+          <div class="content-wrapper " style="overflow: hidden;">
+            <div class="card-header bg-white" style="padding:.782rem 1.25rem;">
+              <h6 class="card-title" style="display:inline-block;"><span class="accessTypeText">权限类别</span></h6>
+              <div class="header-elements col-md-2" style="display:inline-block;">
+                  <div class="form-group" id="accessType" access_type="CONTRACT">
+                      <!-- <select id="accessType" class="form-control select" data-fouc>
+                          <option value="CONTRACT">合同权限</option>
+                          <option value="CONTRACT_END">合同到期审核</option>
+                          <option value="PAYMENT">支付申请单权限</option>
+                          <option value="MENU">菜单权限</option>
+                          <option value="JOURNAL_APPROVE">凭证过账审核</option>
+                          <option value="ACCURED_APPROVE">预提审核</option>
+                          <option value="CF_APPROVE">付款计划完成审核</option>
+                      </select> -->
+                      <a class="dropdown-toggle accessType font-size-lg btn btn-light multiselect" data-toggle="dropdown">
+                        合同权限
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-left" id='typeDropdown'>
+                        <span class="dropdown-item" access_type="CONTRACT">合同权限</span>
+                        <span class="dropdown-item" access_type="CONTRACT_END">合同到期审核</span>
+                        <span class="dropdown-item" access_type="PAYMENT">支付申请单权限</span>
+                        <!-- <span class="dropdown-item" access_type="MENU">菜单权限</span> -->
+                        <span class="dropdown-item" access_type="JOURNAL_APPROVE">凭证过账审核</span>
+                        <span class="dropdown-item" access_type="ACCURED_APPROVE">预提审核</span>
+                        <span class="dropdown-item" access_type="CF_APPROVE">付款计划完成审核</span>
+                        <span class="dropdown-item" access_type="CALCSCRIPT">计算脚本</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="header-elements ml-3 " style="display:inline-block;">
+                <div id="contractOptionDiv" class="form-group radioPart">
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input " name="radio-unstyled-inline-left" value="0" checked>
+                      <span class="contractControl">合同层权限控制</span>
+                    </label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" value="3" name="radio-unstyled-inline-left">
+                      <span class='objectControl'>标的层权限控制</span>
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" value="10" name="radio-unstyled-inline-left">
+                      <span class='paymentAccessControl'>付款计划层权限控制</span>
+                    </label>
+                  </div>
+                </div>
+                <div id="PatmentOptionDiv" class="form-group disPNone radioPart">
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="radio-unstyled-inline-left_pay" value="0" checked>
+                      <span class="ApplyAuthorityControl">申请单层权限控制</span>
+                    </label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" value="4" name="radio-unstyled-inline-left_pay">
+                      <span class="singlePaymentControl">单条付款计划权限控制</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="header-elements ml-6 fr" style="display:inline-block;float:right;">
+                <div class="btn-group" role="group" aria-label="...">
+                  <div class="btn-group">
+                    <button type="button" class="btn  btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-plus2"></i><span class="addRow">添加行</span></button>
+                    <div id="addDropdown" class="dropdown-menu dropdown-menu-right">
+                      <a href="#" class="dropdown-item" >1</a>
+                      <a href="#" class="dropdown-item" >10</a>
+                      <a href="#" class="dropdown-item" >50</a>
+                      <a href="#" class="dropdown-item" >100</a>
+                      <a href="#" class="dropdown-item" >200</a>
+                      <a href="#" class="dropdown-item" >500</a>
+                      <a href="#" class="dropdown-item" >1000</a>
+                    </div>
+                  </div>
+                  <button id="deleteBtn" type="button" class="btn btn-default"><i class="icon-cross"></i> <span class="deleteRow"></span></button>
+                </div>
+              </div>
+            </div>
+            <div class="padding_div">
+              <div id='ss' style='width:100%; height:400px;'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

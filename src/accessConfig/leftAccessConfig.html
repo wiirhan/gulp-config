@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../js/common/api.js?v=311.0.7.dev2.3.1.75"></script>
+  <script>
+    $(document).ready(function(){
+      $("#conDetailsIframe").attr("height", $("#content").height() - 5);
+
+      /**渲染时控制屏幕高度 */
+      var wHeight = $(window).height();
+      $("#conDetailsIframe").attr("height", wHeight - 60.8);
+      $(window).resize(function() {
+        var wHeight = $(window).height();
+        $("#conDetailsIframe").attr("height", wHeight - 60.8);
+      });
+    });
+  </script>
+</head>
+<body>
+  <!--#include file="/v1_5_5/common/headerNav.html"-->
+  <div class="page-content">
+      <!--#include file="/v1_5_5/common/leftMenu.html"-->
+      <div class="content-wrapper" style="overflow-y:hidden;">
+          <div id="content" class="content dimension_div left_div">
+            <iframe src="./accessConfig.html" width="100%" id="conDetailsIframe" style="border: 0;overflow: hidden;"></iframe>
+
+            <!-- loading -->
+            <div class="blockui-message bg-slate-700 text-white rounded p-2" style="display: none;">
+                <i class="icon-spinner4 spinner mt-1"></i> <span class="font-weight-semibold d-block mt-2">Loading</span>
+            </div>
+          </div>
+      </div>
+  </div>
+</body>
+</html>

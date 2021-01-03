@@ -40,6 +40,7 @@
     "watchify": "^3.11.1"
   },
   "dependencies": {
+    "gulp-clean": "^0.4.0",
     "gulp-revm": "^1.0.2",
     "gulp-revm-collector": "^1.0.1"
   }
