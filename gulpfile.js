@@ -18,6 +18,8 @@ const BUILD_DIR = 'build';
 const DIST_DIR = 'dist';
 const PATH_BUILD_JS = ['build/**/*.js', 'build/*.js'];
 const PATH_REV_JSON = ['dist/**/*.json', 'dist/*.json'];
+// 特殊的js，需要拷贝到最外层
+const STATIC_JS = 'build/js/static/**/*.js';
 
 /*-------------ts转js------------------*/
 gulp.task('ts-js', function () {
@@ -86,6 +88,16 @@ gulp.task('rev-other', function (cb) {
   cb();
 });
 
+gulp.task('rev-static', function (cb) {
+  gulp.src(STATIC_JS).pipe(gulp.dest(`${BUILD_DIR}/static`));
+  cb();
+});
+
+gulp.task('rev-plugins', function (cb) {
+  gulp.src(['src/js/plugins/**/*.js', 'src/js/plugins/*.js']).pipe(gulp.dest(`${BUILD_DIR}/js/plugins`));
+  cb();
+});
+
 gulp.task('rev-html', function (cb) {
   gulp
     .src([...PATH_REV_JSON, ...PATH_SRC_HTML])
@@ -103,12 +115,12 @@ gulp.task(
   'build',
   gulp.series(function () {
     return gulp.src(BUILD_DIR, { read: false, allowEmpty: true }).pipe(clean());
-  }, gulp.series('ts-js', 'rev-js', 'rev-css', 'rev-other', 'rev-html'))
+  }, gulp.series('ts-js', 'rev-js', 'rev-css', 'rev-other', 'rev-html', 'rev-static', 'rev-plugins'))
 );
 
 gulp.task('watch', function () {
   console.log('watcher has started');
-  gulp.watch(['src/js/**/*.ts', 'src/js/*.ts'], gulp.series('ts-js', 'rev-js'));
+  gulp.watch(['src/js/**/*.ts', 'src/js/*.ts', 'src/static/**/*.ts'], gulp.series('ts-js', 'rev-js', 'rev-static'));
   gulp.watch(PATH_SRC_CSS, gulp.series('rev-css'));
   gulp.watch(PATH_SRC_HTML, gulp.series('rev-html'));
 });
