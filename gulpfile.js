@@ -10,7 +10,7 @@ const clean = require('gulp-clean');
 // src 源码目录
 const PATH_SRC_HTML = ['src/**/*.html', 'src/*.html'];
 const PATH_SRC_CSS = ['src/**/*.css', 'src/*.css'];
-const PATH_SRC_IMG = ['src/**/*.svg', 'src/**/*.png', 'src/**/*.jpg', 'src/**/*.svg'];
+const PATH_SRC_IMG = ['src/**/*.svg', 'src/**/*.png', 'src/**/*.jpg', 'src/**/*.svg', 'src/**/*.ttf', 'src/**/*.woff'];
 const PATH_SRC_JSON = ['src/**/*.json'];
 
 // build 发生产的代码
@@ -95,6 +95,9 @@ gulp.task('rev-static', function (cb) {
 
 gulp.task('rev-plugins', function (cb) {
   gulp.src(['src/js/plugins/**/*.*', 'src/js/plugins/*.*']).pipe(gulp.dest(`${BUILD_DIR}/js/plugins`));
+  gulp.src(['src/js/global_assets/**/*.*', 'src/js/global_assets/*.*']).pipe(gulp.dest(`${BUILD_DIR}/js/global_assets`));
+  gulp.src( 'src/config/*.js').pipe(gulp.dest(`${BUILD_DIR}/config`));
+  gulp.src( 'src/js/common/*.*').pipe(gulp.dest(`${BUILD_DIR}/js/common`));
   cb();
 });
 
